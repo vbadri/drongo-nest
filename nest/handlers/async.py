@@ -139,6 +139,7 @@ class AsyncHandler(object):
         while True:
             try:
                 env = yield from http.get_one()
+                self._logger.info('Starting asyncio handle with IP {}, port {}'.format(self._ip, self._port))
                 timer_start = time.time()
                 if env is None:
                     break

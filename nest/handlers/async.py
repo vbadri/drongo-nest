@@ -97,6 +97,7 @@ class Responder(object):
         self.writer.write(status.encode('ascii'))
         self.writer.write(b'\r\n')
         for h in headers:
+            self._logger.info("Writing .. {}".format(h))
             self.writer.write(': '.join(h).encode('ascii'))
             self.writer.write(b'\r\n')
         self.writer.write(b'\r\n')

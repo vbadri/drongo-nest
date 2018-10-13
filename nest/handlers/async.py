@@ -85,12 +85,14 @@ class Reader(object):
 
 class Responder(object):
     __slots__ = ['writer', 'app']
+    _logger = logging.getLogger('asyncio-responder')
 
     def __init__(self, writer, app):
         self.writer = writer
         self.app = app
 
     def start_response(self, status, headers):
+        self._logger.info('Starting response')
         self.writer.write(b'HTTP/1.1 ')
         self.writer.write(status.encode('ascii'))
         self.writer.write(b'\r\n')
@@ -98,6 +100,7 @@ class Responder(object):
             self.writer.write(': '.join(h).encode('ascii'))
             self.writer.write(b'\r\n')
         self.writer.write(b'\r\n')
+        self._logger.info('Response done')
 
     @asyncio.coroutine
     def respond(self, env):

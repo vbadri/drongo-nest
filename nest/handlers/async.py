@@ -92,16 +92,16 @@ class Responder(object):
         self.app = app
 
     def start_response(self, status, headers):
-        self._logger.info('Starting response')
+        #self._logger.info('Starting response')
         self.writer.write(b'HTTP/1.1 ')
         self.writer.write(status.encode('ascii'))
         self.writer.write(b'\r\n')
         for h in headers:
-            self._logger.info("Writing .. {}".format(h))
+            #self._logger.info("Writing .. {}".format(h))
             self.writer.write(': '.join(h).encode('ascii'))
             self.writer.write(b'\r\n')
         self.writer.write(b'\r\n')
-        self._logger.info('Response done')
+        #self._logger.info('Response done')
 
     @asyncio.coroutine
     def respond(self, env):
